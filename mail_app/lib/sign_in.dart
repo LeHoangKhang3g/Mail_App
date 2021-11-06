@@ -107,12 +107,12 @@ class SignFailed extends StatefulWidget{
                 width: 300,
                 height: 150,
                 decoration: const ShapeDecoration(
-                  color: Colors.white,
+                  color: Colors.cyan,
                   shape: CircleBorder(),
                 ),
                 child: const Icon(
-                Icons.mail,
-                  color: Colors.cyan,
+                Icons.cancel,
+                  color: Colors.white,
                   size: 90,
                 ),
               ),
@@ -126,7 +126,7 @@ class SignFailed extends StatefulWidget{
             ),
           ),
          const Text("Your username and password don't match."),
-         const Text("Please,Try again"),
+         const Text("Please,Try again."),
           Container(
            padding: const EdgeInsets.fromLTRB(50, 150, 50, 50),
            child:  OutlinedButton( 
@@ -135,7 +135,6 @@ class SignFailed extends StatefulWidget{
                   'TRY AGAIN',
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
                   ),
                   ),
                 style: ButtonStyle(
@@ -151,8 +150,43 @@ class SignFailed extends StatefulWidget{
 
   }
 }
-/*
-class LoadingSignIn extends StatefulWidget{
-  
-} 
-*/
+
+    class LoadingSignIn extends StatefulWidget{
+      const LoadingSignIn({Key ? key}) : super (key: key);
+        @override
+        _LoadingSignInState createState() => _LoadingSignInState();
+      }
+
+      class _LoadingSignInState extends State<LoadingSignIn> {
+        bool _isLoading = false;
+        @override
+        Widget build(BuildContext context) {
+          return Scaffold(
+            backgroundColor: Colors.cyan,
+          body:  Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 50),
+                child: Center(
+                  child: Ink(
+                    width: 300,
+                    height: 150,
+                    decoration: const ShapeDecoration(
+                      color: Colors.white,
+                      shape: CircleBorder(),
+                    ),
+                    child: const Icon(
+                    Icons.mail,
+                      color: Colors.cyan,
+                      size: 90,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+
+          ),
+        );
+    } 
+  }
+

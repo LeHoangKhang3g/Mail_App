@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Interface_Mail extends StatefulWidget{
   const Interface_Mail({Key?key}):super(key: key);
@@ -68,7 +69,9 @@ class _Interface_MailState extends State<Interface_Mail>{
         centerTitle: true,
         actions: [
           TextButton(
-            onPressed: (){}, 
+            onPressed: (){
+              Navigator.pop(context);
+            }, 
             child: const Text("Quay lại"),
             style: TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary),
           ),
@@ -176,4 +179,68 @@ class Mail{
   late Color color;
   late String lable;
   late int number;
+}
+
+class LoadingSignIn extends StatefulWidget{
+  const LoadingSignIn({Key?key}):super(key: key);
+
+  @override
+  _LoadingSignInState createState()=> _LoadingSignInState();
+} 
+
+class _LoadingSignInState extends State<LoadingSignIn>{
+  bool go_on=true;
+  @override 
+  Widget build(BuildContext context){
+    Future.delayed(const Duration(seconds: 3)).then((value) => {
+      if(go_on){
+        go_on=false,
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Interface_Mail()),
+        ),
+      }
+      else{
+        Navigator.pop(context)
+      }
+    });
+
+    return Scaffold(
+      backgroundColor: Colors.cyan,
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 50),
+            child: Center(
+              child: Ink(
+                width: 300,
+                height: 150,
+                decoration: const ShapeDecoration(
+                  color: Colors.white,
+                  shape: CircleBorder(),
+                ),
+                child: const Icon(
+                Icons.mail,
+                  color: Colors.cyan,
+                  size: 90,
+                ),
+              ),
+            ),
+          ),
+          const  Text(
+            "SignIn",
+            style: TextStyle(
+              fontSize: 55,
+              color: Colors.white,
+            ),
+          ),
+          const Text("Speak, friend, and enter"),
+          const SpinKitCubeGrid(
+            color: Colors.white,
+            size: 75.0,
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -145,7 +145,7 @@ class SignFailed extends StatefulWidget{
                 width: 300,
                 height: 150,
                 decoration: const ShapeDecoration(
-                  color: Colors.white,
+                  color: Colors.cyan,
                   shape: CircleBorder(),
                 ),
                 child: const Icon(
@@ -164,7 +164,7 @@ class SignFailed extends StatefulWidget{
             ),
           ),
          const Text("Your username and password don't match."),
-         const Text("Please,Try again"),
+         const Text("Please,Try again."),
           Container(
            padding: const EdgeInsets.fromLTRB(50, 150, 50, 50),
            child:  OutlinedButton( 
@@ -175,7 +175,6 @@ class SignFailed extends StatefulWidget{
                   'TRY AGAIN',
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
                   ),
                   ),
                 style: ButtonStyle(
@@ -187,6 +186,5 @@ class SignFailed extends StatefulWidget{
         ],
       ),
     );
-
   }
 }

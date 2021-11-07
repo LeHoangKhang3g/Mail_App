@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:mail_app/interface_mail.dart';
 
 
 class SignIn extends StatefulWidget{
@@ -9,6 +10,23 @@ class SignIn extends StatefulWidget{
   _SignInState createState() => _SignInState();
 }
 class _SignInState extends State<SignIn> {
+  late TextEditingController _controller1;
+  late TextEditingController _controller2;
+
+  @override
+  void initState(){
+    super.initState();
+    _controller1=TextEditingController();
+    _controller2=TextEditingController();
+  }
+
+  @override
+  void dispose(){
+    _controller1.dispose();
+    _controller2.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +34,7 @@ class _SignInState extends State<SignIn> {
       body:  Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 100),
             child: Center(
               child: Ink(
                 width: 300,
@@ -33,32 +51,43 @@ class _SignInState extends State<SignIn> {
               ),
             ),
           ),
-          const  Text(
-            "SignIn",
-            style: TextStyle(
-              fontSize: 55,
-              color: Colors.white,
+          Container(
+            padding: const EdgeInsets.only(top: 20),
+            child: const  Text(
+              "SignIn",
+              style: TextStyle(
+                fontSize: 50,
+                color: Colors.white,
+              ),
             ),
           ),
-         const Text("Speak, friend, and enter"),
-         Container(
-           padding: const EdgeInsets.fromLTRB(50, 20, 50, 20),
-           child:  const TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  labelText: 'Email',
-                ),
+          const Text(
+            "Speak, friend, and enter",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
             ),
-         ),
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(50, 120, 50, 20),
+            child: TextField(
+                  controller: _controller1,
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    labelText: 'Email',
+                  ),
+              ),
+          ),
          Container(
            padding: const EdgeInsets.fromLTRB(50, 5, 50, 5),
-           child:  const TextField(
+           child: TextField(
+                controller: _controller2,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(),
@@ -67,9 +96,17 @@ class _SignInState extends State<SignIn> {
             ),
          ),
          Container(
-           padding: const EdgeInsets.fromLTRB(50, 150, 50, 50),
+           padding: const EdgeInsets.fromLTRB(50, 100, 50, 50),
            child:  OutlinedButton( 
-                onPressed: () {},
+                onPressed: () {
+                  if(_controller1.text==_controller2.text){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoadingSignIn()));
+                  }
+                  else{
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const SignFailed()));
+                  }
+                  setState(() {});
+                },
                 child: const Text(
                   'SIGN IN',
                   style: TextStyle(
@@ -98,10 +135,11 @@ class SignFailed extends StatefulWidget{
     @override
     Widget build(BuildContext context) {
       return Scaffold(
+        backgroundColor: Colors.cyan,
         body:  Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 100,bottom: 50),
             child: Center(
               child: Ink(
                 width: 300,
@@ -111,7 +149,7 @@ class SignFailed extends StatefulWidget{
                   shape: CircleBorder(),
                 ),
                 child: const Icon(
-                Icons.mail,
+                Icons.cancel,
                   color: Colors.cyan,
                   size: 90,
                 ),
@@ -130,7 +168,9 @@ class SignFailed extends StatefulWidget{
           Container(
            padding: const EdgeInsets.fromLTRB(50, 150, 50, 50),
            child:  OutlinedButton( 
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text(
                   'TRY AGAIN',
                   style: TextStyle(
@@ -145,14 +185,8 @@ class SignFailed extends StatefulWidget{
             ),
             ),
         ],
-
       ),
     );
 
   }
 }
-/*
-class LoadingSignIn extends StatefulWidget{
-  
-} 
-*/

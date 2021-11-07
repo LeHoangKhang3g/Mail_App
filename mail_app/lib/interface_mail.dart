@@ -71,6 +71,7 @@ class _Interface_MailState extends State<Interface_Mail>{
           TextButton(
             onPressed: (){
               Navigator.pop(context);
+              Navigator.pop(context);
             }, 
             child: const Text("Quay lại"),
             style: TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary),
@@ -78,12 +79,12 @@ class _Interface_MailState extends State<Interface_Mail>{
         ],
       ),
       body: Container(
-        color: const Color.fromRGBO(200, 200, 200, 100),
+        color: const Color.fromRGBO(210, 210, 210, 100),
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.only(top:30,left: 30, bottom: 5),
               child: const Text(
                 "Mailboxes",
                 style: TextStyle(
@@ -94,7 +95,7 @@ class _Interface_MailState extends State<Interface_Mail>{
             Container(
               margin: const EdgeInsets.only(left: 10,right: 10),
               padding: const EdgeInsets.only(left: 20,right: 20),
-              color: const Color.fromRGBO(240, 240, 240, 100),
+              color: const Color.fromRGBO(255, 255, 255, 100),
               child: Column(
                 children: [
                   buildMailItems(0, mails[0].icon, mails[0].color, mails[0].lable, mails[0].number),
@@ -106,7 +107,7 @@ class _Interface_MailState extends State<Interface_Mail>{
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.only(top:30,left: 30, bottom: 5),
               child: const Text(
                 "Special folders",
                  style: TextStyle(
@@ -117,7 +118,7 @@ class _Interface_MailState extends State<Interface_Mail>{
             Container(
               margin: const EdgeInsets.only(left: 10,right: 10),
               padding: const EdgeInsets.only(left: 20,right: 20),
-              color: const Color.fromRGBO(240, 240, 240, 100),
+              color: const Color.fromRGBO(255, 255, 255, 100),
               child:Column(
                 children: [
                   buildMailItems(5, mails[5].icon, mails[5].color, mails[5].lable, mails[5].number),
@@ -144,6 +145,9 @@ class _Interface_MailState extends State<Interface_Mail>{
               }
               else if(mails[i].isChecked){
                 mails[i].isChecked=false;
+                if(i<5){
+                  mails[0].number-=mails[i].number;
+                }
                 mails[i].number=0;
               }
             }
@@ -189,28 +193,24 @@ class LoadingSignIn extends StatefulWidget{
 } 
 
 class _LoadingSignInState extends State<LoadingSignIn>{
-  bool go_on=true;
+  @override
+  void initState(){
+    Future.delayed(const Duration(seconds: 3)).then((value) => {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Interface_Mail()),
+      ),
+    });
+    super.initState();
+  }
   @override 
   Widget build(BuildContext context){
-    Future.delayed(const Duration(seconds: 3)).then((value) => {
-      if(go_on){
-        go_on=false,
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Interface_Mail()),
-        ),
-      }
-      else{
-        Navigator.pop(context)
-      }
-    });
-
     return Scaffold(
       backgroundColor: Colors.cyan,
       body: Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 100),
             child: Center(
               child: Ink(
                 width: 300,
@@ -227,18 +227,32 @@ class _LoadingSignInState extends State<LoadingSignIn>{
               ),
             ),
           ),
-          const  Text(
-            "SignIn",
-            style: TextStyle(
-              fontSize: 55,
-              color: Colors.white,
+          Container(
+            padding: const EdgeInsets.only(top: 20),
+            child: const  Text(
+              "SignIn",
+              style: TextStyle(
+                fontSize: 50,
+                color: Colors.white,
+              ),
             ),
           ),
-          const Text("Speak, friend, and enter"),
-          const SpinKitCubeGrid(
-            color: Colors.white,
-            size: 75.0,
+          const Text(
+            "Speak, friend, and enter",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+
+          Container(
+            margin: const EdgeInsets.only(top: 160),
+            child: const SpinKitSpinningLines(
+              color: Colors.white,
+              size: 180,
+            ),
+          ),
+          
         ],
       ),
     );

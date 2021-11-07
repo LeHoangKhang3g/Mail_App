@@ -139,17 +139,17 @@ class SignFailed extends StatefulWidget{
         body:  Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 100,bottom: 50),
+            padding: const EdgeInsets.only(top: 100, bottom: 50),
             child: Center(
               child: Ink(
                 width: 300,
                 height: 150,
                 decoration: const ShapeDecoration(
-                  color: Colors.cyan,
+                  color: Colors.white,
                   shape: CircleBorder(),
                 ),
                 child: const Icon(
-                Icons.cancel,
+                Icons.mail,
                   color: Colors.cyan,
                   size: 90,
                 ),
